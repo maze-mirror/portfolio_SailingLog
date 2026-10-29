@@ -151,7 +151,7 @@
   width: 100%;
 }
 .sailing-log .sl-journey {
-  height: calc(100dvh + 6400px);
+  height: calc(100dvh + 4400px);
 }
 .sailing-log .sl-stage {
   position: sticky;

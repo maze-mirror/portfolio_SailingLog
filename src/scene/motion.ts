@@ -5,21 +5,21 @@ export function smooth(value: number) {
 }
 
 export const TIMING = {
-  oceanStart: 0.38,
-  scatterStart: 0.5,
+  oceanStart: 0.3,
+  scatterStart: 0.05,
   aboutStart: 0.8,
   portraitGatherSeconds: 1.1,
   portraitHoldSeconds: 0.7,
   portraitScatterSeconds: 1.1,
-  scatterSeconds: 1.5,
-  scrollDistance: 6400,
+  scatterSeconds: 2.5,
+  scrollDistance: 5600,
 } as const
 
 /** Zoom keeps advancing while the same view breaks into characters. */
 export function voyageMotion(progress: number) {
   const p = clamp(progress)
   const scatter = clamp((p - TIMING.scatterStart) / (TIMING.aboutStart - TIMING.scatterStart))
-  const zoom = 1 + 0.3 * smooth((p - TIMING.oceanStart) / 0.18) + 0.38 * smooth(scatter)
+  const zoom = 1 + 0.5 * smooth((p - TIMING.oceanStart) / 0.30) + 0.50 * smooth(scatter)
   return {
     zoom,
     scatter,
