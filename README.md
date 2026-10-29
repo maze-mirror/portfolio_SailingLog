@@ -3,6 +3,7 @@
 ASCII 风格、以 ONE PIECE 和航海为灵感的个人网页。独立 Vue / TypeScript / Vite 项目。
 
 仓库：[maze-mirror/portfolio_sailingLog](https://github.com/maze-mirror/portfolio_sailingLog)
+demo: [click here](https://maze-mirror.github.io/portfolio_sailingLog/)
 
 ## 启动
 
