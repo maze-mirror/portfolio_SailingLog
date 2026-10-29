@@ -8,7 +8,7 @@ import {
   PORTRAIT_COLUMNS,
   SPEECH_COLUMNS,
   samplePortraitLevel,
-} from '../portrait-flow'
+} from '../src/scene/portrait-flow'
 
 describe('continuous portrait character stream', () => {
   it('moves within a cell, instead of waiting to replace a whole character', () => {

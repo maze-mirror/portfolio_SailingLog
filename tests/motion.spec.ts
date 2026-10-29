@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { advanceProgress, flowingGlyph, gatheringPosition, TIMING, voyageMotion } from '../motion'
+import { advanceProgress, flowingGlyph, gatheringPosition, TIMING, voyageMotion } from '../src/scene/motion'
 
 describe('voyage motion', () => {
   it('zooms while the same scene scatters, rather than stopping the zoom first', () => {

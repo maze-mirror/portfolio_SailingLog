@@ -33,7 +33,7 @@ pnpm preview --host 127.0.0.1 --port 5177
 - 人物直接绘制字形，保持实际屏幕像素比，不放大低分辨率中间人物贴图。
 - 减少动态效果偏好下停止自动人物循环；离开页面释放动画与观察器，后台暂停绘制。
 
-原始素材为用户提供的 `assets/luffy-source.png` 与 `assets/luffy-alternate-source.jpg`，保留原文件。`assets/*.json` 是网页直接使用的采样数据。离线生成工具位于 `scripts/`，如需重新采样或生成望远镜帧，可安装 Python 的 numpy 与 Pillow；浏览网站和构建不需要 Python。
+原始素材为用户提供的 `src/assets/luffy-source.png` 与 `src/assets/luffy-alternate-source.jpg`，保留原文件。`src/assets/*.json` 是网页直接使用的采样数据。离线生成工具位于 `scripts/`，如需重新采样或生成望远镜帧，可安装 Python 的 numpy 与 Pillow；浏览网站和构建不需要 Python。
 
 ## 参数调试
 
@@ -41,27 +41,38 @@ pnpm preview --host 127.0.0.1 --port 5177
 
 | 项目 | 文件 / 参数 |
 | --- | --- |
-| 人物字符大小 | `portrait-flow.ts`：`PORTRAIT_COLUMNS`，数字越大字越小 |
-| 台词字符大小 | `portrait-flow.ts`：`SPEECH_COLUMNS` |
-| 人物流速、方向 | `portrait-flow.ts`：`PORTRAIT_FLOW_SPEED`，正数向下，负数向上，0 停止 |
-| 收拢、停留、扩散时间 | `motion.ts`：`TIMING.portraitGatherSeconds` / `portraitHoldSeconds` / `portraitScatterSeconds` |
-| 两张图的尺寸、位置 | `scene.js`：`drawAbout()` 内的 `boxWidth`、`left`、`top`；`cycle.index === 1` 为第二张 |
-| 左侧文字位置 | `sailing-log.css`：`.sl-about` 的 `padding` |
-| 实际滚动距离 | `sailing-log.css`：`.sl-journey` 的高度；`TIMING.scrollDistance` 当前不参与高度计算 |
-| 海洋放大范围、幅度 | `motion.ts`：`voyageMotion()` 中 `zoom` 的表达式 |
-| 海洋碎散速度限制 | `motion.ts`：`TIMING.scatterSeconds` |
+| 人物字符大小 | `src/scene/portrait-flow.ts`：`PORTRAIT_COLUMNS`，数字越大字越小 |
+| 台词字符大小 | `src/scene/portrait-flow.ts`：`SPEECH_COLUMNS` |
+| 人物流速、方向 | `src/scene/portrait-flow.ts`：`PORTRAIT_FLOW_SPEED`，正数向下，负数向上，0 停止 |
+| 收拢、停留、扩散时间 | `src/scene/motion.ts`：`TIMING.portraitGatherSeconds` / `portraitHoldSeconds` / `portraitScatterSeconds` |
+| 两张图的尺寸、位置 | `src/scene/scene.js`：`drawAbout()` 内的 `boxWidth`、`left`、`top`；`cycle.index === 1` 为第二张 |
+| 左侧文字位置 | `src/styles/sailing-log.css`：`.sl-about` 的 `padding` |
+| 实际滚动距离 | `src/styles/sailing-log.css`：`.sl-journey` 的高度；`TIMING.scrollDistance` 当前不参与高度计算 |
+| 海洋放大范围、幅度 | `src/scene/motion.ts`：`voyageMotion()` 中 `zoom` 的表达式 |
+| 海洋碎散速度限制 | `src/scene/motion.ts`：`TIMING.scatterSeconds` |
 
 当前调好的设置包括主体 130 列、台词 384 列、人物收拢/停留/扩散 1.1/0.7/1.1 秒；第一张尺寸范围 32%，第二张 42%，各自中心为 68% / 70%，第二张向上偏移画布高度 3%；滚动距离为 6400 px。迁移没有重新调整这些值。
 
 ## 目录
 
-- 根目录的 Vue、TypeScript、JS、CSS 文件：页面和绘制逻辑。
-- `src/`：独立应用入口与全局基础样式。
-- `assets/`：原始素材与角色、望远镜采样数据。
-- `__tests__/`：滚动、字符流、聚拢、循环的测试，支持调整当前参数。
-- `reference/`：用户流动参考录屏、迁移前原型，仅作存档，不随页面加载。
-- `docs/DEVELOPMENT.md`：迁移前开发说明，保留历史内容。
-- `QUALITY.md`：本次独立迁移验证及历史检查记录。
+```text
+src/
+  SailingLog.vue    页面
+  main.ts          启动入口
+  components/      定位图标等组件
+  scene/           动画、字符绘制、素材加载与参数
+  styles/          页面和基础样式
+  assets/          原始图片与字符采样数据
+tests/             滚动、字符流、聚拢和循环测试
+scripts/           离线素材生成工具
+config/            TypeScript 检查配置
+docs/
+  QUALITY.md       验证记录
+  DEVELOPMENT.md   迁移前开发说明
+  reference/       参考录屏和原型存档
+```
+
+根目录只保留 README、协作约定、HTML 入口以及依赖和构建所需的配置文件。`docs/reference/` 不随页面加载。
 
 ## 与 school-web 的关系
 

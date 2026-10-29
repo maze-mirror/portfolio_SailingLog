@@ -7,7 +7,7 @@ import json
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
-assets = Path(__file__).resolve().parents[1] / 'assets'
+assets = Path(__file__).resolve().parents[1] / 'src' / 'assets'
 width, height = 640, 326
 image = Image.open(assets / 'luffy-source.png').convert('RGBA')
 original = np.asarray(image)

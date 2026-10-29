@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import { loadSceneAssets } from './assets'
-import { mountSailingLog } from './scene.js'
-import LocationPin from './LocationPin.vue'
-import './sailing-log.css'
+import { loadSceneAssets } from './scene/assets'
+import { mountSailingLog } from './scene/scene.js'
+import LocationPin from './components/LocationPin.vue'
+import './styles/sailing-log.css'
 
 const container = ref<HTMLElement | null>(null)
 const debug = new URLSearchParams(window.location.search).has('debug')

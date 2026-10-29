@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-OUT = Path(__file__).resolve().parents[1] / 'assets'
+OUT = Path(__file__).resolve().parents[1] / 'src' / 'assets'
 W, H = 264, 126
 # Radius profile of an extended, three-section terrestrial spyglass.
 profile = [(-2.65,.29),(-2.62,.35),(-2.48,.35),(-2.44,.29),

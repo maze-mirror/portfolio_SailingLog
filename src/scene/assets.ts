@@ -1,6 +1,6 @@
-import telescopeUrl from './assets/telescope-frames.json?url'
-import portraitUrl from './assets/portrait.json?url'
-import alternatePortraitUrl from './assets/portrait-alternate.json?url'
+import telescopeUrl from '../assets/telescope-frames.json?url'
+import portraitUrl from '../assets/portrait.json?url'
+import alternatePortraitUrl from '../assets/portrait-alternate.json?url'
 import type { SceneAssets } from './types'
 
 export async function loadSceneAssets(signal: AbortSignal): Promise<SceneAssets> {

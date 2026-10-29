@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { portraitCycle } from '../portrait-cycle'
-import { TIMING } from '../motion'
+import { portraitCycle } from '../src/scene/portrait-cycle'
+import { TIMING } from '../src/scene/motion'
 
 const gather = TIMING.portraitGatherSeconds
 const hold = TIMING.portraitHoldSeconds

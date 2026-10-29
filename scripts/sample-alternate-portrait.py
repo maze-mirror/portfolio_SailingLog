@@ -5,7 +5,7 @@ import json
 import numpy as np
 from PIL import Image
 
-assets = Path(__file__).resolve().parents[1] / 'assets'
+assets = Path(__file__).resolve().parents[1] / 'src' / 'assets'
 image = Image.open(assets / 'luffy-alternate-source.jpg').convert('RGB')
 rgb = np.asarray(image)
 h, w = rgb.shape[:2]

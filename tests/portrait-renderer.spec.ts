@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { createPortraitRenderer } from '../portrait-renderer'
-import { PORTRAIT_FLOW_SPEED } from '../portrait-flow'
+import { createPortraitRenderer } from '../src/scene/portrait-renderer'
+import { PORTRAIT_FLOW_SPEED } from '../src/scene/portrait-flow'
 
 describe('fully flowing portrait', () => {
   it('moves every rendered row down, with no anchored silhouette layer, and stays continuous across row boundaries', () => {
