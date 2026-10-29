@@ -1,0 +1,16 @@
+html,
+body,
+#app {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  background: #ffffff;
+}
+* {
+  box-sizing: border-box;
+}
