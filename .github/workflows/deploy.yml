@@ -44,7 +44,7 @@ jobs:
         run: pnpm test:unit --run
 
       - name: Build website
-        run: pnpm build-only --base=/portfolio_sailingLog/
+        run: pnpm build-only --base="/${{ github.event.repository.name }}/"
 
       - uses: actions/configure-pages@v6
 

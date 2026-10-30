@@ -1,5 +1,13 @@
 # sailing_log 本轮验证
 
+## Pages 链接与资源路径大小写修复 · 2026-10-30
+
+- GitHub API 确认实际仓库名为 `maze-mirror/portfolio_SailingLog`。只读 HTTP 检查：README 原地址 `/portfolio_sailingLog/` 返回 404，正确地址 `/portfolio_SailingLog/` 返回 200。
+- 已部署 HTML 的 JS/CSS 地址使用小写 `/portfolio_sailingLog/assets/`；实测对应 JS 在小写路径下为 404，在大写 S 的正确路径下为 200，解释正确入口仍显示空白的原因。
+- README 的仓库和 demo 链接统一为实际大小写；工作流构建 base 改从 `github.event.repository.name` 读取，不再手写易出错的仓库名。页面源码和动画参数未改动。
+- 本轮类型检查、指定 `--base=/portfolio_SailingLog/` 的生产构建通过；检查构建 HTML 的 JS/CSS 路径及本地文件存在性、三项场景 JSON 的路径前缀，均正确。未修改业务逻辑，未重复业务测试或浏览器美术验收。
+- 仅本地修复，未提交、推送、部署。线上资源引用仍需用户推送后由 Actions 更新；本地构建通过不代表线上已修复。
+
 ## CI 停留时间测试修复 · 2026-10-30
 
 - 用户将 `ABOUT_READ_SECONDS` 调为 1 秒后，CI 的反向滚动测试仍断言等待 80 帧（1.6 秒）后进度为 0，造成 1 项失败。这是测试固定假设与可调参数不一致。

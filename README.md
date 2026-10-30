@@ -2,10 +2,10 @@
 
 ASCII 风格、以 ONE PIECE 和航海为灵感的个人网页。独立 Vue / TypeScript / Vite 项目。
 
-仓库：[maze-mirror/portfolio_sailingLog](https://github.com/maze-mirror/portfolio_sailingLog)
+仓库：[maze-mirror/portfolio_SailingLog](https://github.com/maze-mirror/portfolio_SailingLog)
 
 
-demo: [click here](https://maze-mirror.github.io/portfolio_sailingLog/)
+demo: [click here](https://maze-mirror.github.io/portfolio_SailingLog/)
 
 ## 启动
 
@@ -25,7 +25,7 @@ pnpm build
 pnpm preview --host 127.0.0.1 --port 5177
 ```
 
-构建输出为 `dist/`，相对资源路径支持以后放在独立域名或子目录中。本次只整理和推送源码，没有部署网站。
+构建输出为 `dist/`，本地默认使用相对资源路径。GitHub Actions 根据实际仓库名设置 Pages 子目录（当前 `/portfolio_SailingLog/`），链接与资源路径需要保持大小写一致。
 
 ## 目录
 
