@@ -1,0 +1,8 @@
+.sailing-log canvas.sl-tide {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

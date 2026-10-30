@@ -67,6 +67,8 @@ export function mountSailingLog(root, options) {
     subtitleLetters = splitLetters(subtitle)
   const aboutLetters = Array.from(root.querySelectorAll('.sl-about-text'), splitLetters)
   const aboutDelays = [0, 0.58, 1.5, 2.15, 3.65]
+  const aboutRevealDuration = Math.max(...aboutLetters.map((letters, i) =>
+    aboutDelays[i] + Math.max(0, letters.length - 1) * 0.04 + 0.21))
   const originalIntroDuration = Math.max(
     0.12 + (titleLetters.length - 1) * 0.065 + 0.21,
     0.78 + (subtitleLetters.length - 1) * 0.045 + 0.21,
@@ -97,6 +99,7 @@ export function mountSailingLog(root, options) {
     const elapsed = reduced.matches ? 99 : aboutTime
     aboutLetters.forEach((letters, i) => revealLetters(letters, elapsed - aboutDelays[i], 0.04))
     locationIcon.style.opacity = elapsed > aboutDelays[4] ? '1' : '0'
+    root.dataset.aboutReady = String(opacity >= 0.999 && elapsed >= aboutRevealDuration)
   }
   let debris = null,
     frozenOcean = null,
@@ -152,7 +155,7 @@ export function mountSailingLog(root, options) {
     ctx.fillStyle = '#ffffff'
     ctx.fillRect(0, 0, w, h)
     const u = reduced.matches ? progress : smooth(progress)
-    const under = 1 - smooth(u / 0.2)
+    const under = 1 - smooth(u / 0.28)
     const camera = voyageMotion(state.p)
     if (under > 0.001) {
       ctx.globalAlpha = under
@@ -167,7 +170,7 @@ export function mountSailingLog(root, options) {
     ctx.scale(1.03, 1.03)
     ctx.font = '7px "Courier New",monospace'
     ctx.textBaseline = 'top'
-    const appear = smooth(u / 0.12)
+    const appear = smooth(u / 0.16)
     for (const d of debris) {
       const k = clamp((u - d.delay) / (1 - d.delay)),
         travel = Math.pow(k, 1.25)
@@ -456,6 +459,7 @@ export function mountSailingLog(root, options) {
     debris = null
     frozenOcean = null
     about.style.opacity = '0'
+    root.dataset.aboutReady = 'false'
     about.setAttribute('aria-hidden', 'true')
     if (timeline) timeline.progress(p)
     else {
@@ -527,7 +531,7 @@ export function mountSailingLog(root, options) {
   function setProgress(p) {
     target = clamp(p)
     window.scrollTo({
-      top: journey.offsetTop + target * (journey.offsetHeight - window.innerHeight),
+      top: journey.offsetTop + target * TIMING.scrollDistance,
       behavior: 'auto',
     })
     progressDirty = true
@@ -537,7 +541,7 @@ export function mountSailingLog(root, options) {
   function loop(now) {
     raf = 0
     if (!root.isConnected || !visible) return
-    if (now - lastPaint < 32) {
+    if (now - lastPaint < 16) {
       raf = requestAnimationFrame(loop)
       return
     }
@@ -623,7 +627,7 @@ export function mountSailingLog(root, options) {
     ScrollTrigger.create({
       trigger: journey,
       start: 'top top',
-      end: 'bottom bottom',
+      end: () => `+=${TIMING.scrollDistance}`,
       onUpdate: (self) => {
         target = self.progress
         progressDirty = true

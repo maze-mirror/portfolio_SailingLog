@@ -3,24 +3,30 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { loadSceneAssets } from './scene/assets'
 import { mountSailingLog } from './scene/scene.js'
 import LocationPin from './components/LocationPin.vue'
+import { mountTide } from './scene/tide'
 import './styles/sailing-log.css'
+import './styles/tide.css'
 
 const container = ref<HTMLElement | null>(null)
 const debug = new URLSearchParams(window.location.search).has('debug')
 const controller = new AbortController()
 const loadFailed = ref(false)
 let dispose: (() => void) | undefined
+let disposeTide: (() => void) | undefined
 onMounted(async () => {
   try {
     const assets = await loadSceneAssets(controller.signal)
-    if (container.value && !controller.signal.aborted)
+    if (container.value && !controller.signal.aborted) {
       dispose = mountSailingLog(container.value, { assets })
+      disposeTide = mountTide(container.value)
+    }
   } catch {
     if (!controller.signal.aborted) loadFailed.value = true
   }
 })
 onUnmounted(() => {
   controller.abort()
+  disposeTide?.()
   dispose?.()
 })
 </script>
@@ -62,6 +68,7 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
+        <canvas data-tide class="sl-tide" aria-hidden="true"></canvas>
       </div>
     </section>
     <div v-show="debug" class="sl-controls">

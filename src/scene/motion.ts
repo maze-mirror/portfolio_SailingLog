@@ -6,12 +6,12 @@ export function smooth(value: number) {
 
 export const TIMING = {
   oceanStart: 0.3,
-  scatterStart: 0.05,
+  scatterStart: 0.56,
   aboutStart: 0.8,
   portraitGatherSeconds: 1.1,
   portraitHoldSeconds: 0.7,
   portraitScatterSeconds: 1.1,
-  scatterSeconds: 2.5,
+  scatterSeconds: 2.3,
   scrollDistance: 5600,
 } as const
 
@@ -19,7 +19,7 @@ export const TIMING = {
 export function voyageMotion(progress: number) {
   const p = clamp(progress)
   const scatter = clamp((p - TIMING.scatterStart) / (TIMING.aboutStart - TIMING.scatterStart))
-  const zoom = 1 + 0.5 * smooth((p - TIMING.oceanStart) / 0.30) + 0.50 * smooth(scatter)
+  const zoom = 1 + 0.5 * smooth((p - TIMING.oceanStart) / 0.3) + 0.50 * smooth(scatter)
   return {
     zoom,
     scatter,
@@ -30,7 +30,7 @@ export function voyageMotion(progress: number) {
 /** A scroll fling cannot skip the scatter; reverse scroll uses the same pace. */
 export function advanceProgress(current: number, target: number, seconds: number, reduced = false) {
   if (reduced) return clamp(target)
-  const desired = current + (clamp(target) - current) * (1 - Math.exp(-seconds * 13))
+  const desired = current + (clamp(target) - current) * (1 - Math.exp(-seconds * 10))
   const step = (seconds * (TIMING.aboutStart - TIMING.scatterStart)) / TIMING.scatterSeconds
   if (desired > current) {
     if (current < TIMING.scatterStart && desired > TIMING.scatterStart) return TIMING.scatterStart
