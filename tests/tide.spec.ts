@@ -24,11 +24,14 @@ describe('fast scroll sequencing', () => {
     expect(state.progress).toBeLessThan(0.6)
     state = frames(state, 200, false, 0)
     expect(state).toEqual({ progress: 0, readySeconds: 0 })
-    expect(frames(state, 80, true).progress).toBe(0)
+    const beforeDeadline = Math.max(0, Math.floor(ABOUT_READ_SECONDS / 0.02) - 2)
+    expect(frames(state, beforeDeadline, true).progress).toBe(0)
+    expect(frames(state, Math.ceil(ABOUT_READ_SECONDS / 0.02) + 2, true).progress).toBeGreaterThan(0)
   })
   it('does not count a background pause as reading and supports reduced motion', () => {
     expect(advanceTidePlayback({ progress: 0, readySeconds: 0 }, 1, true, 60, 5.86).progress).toBe(0)
-    const state = frames({ progress: 0, readySeconds: 0 }, 110, true, 0.8, true)
+    const afterDeadline = Math.ceil(ABOUT_READ_SECONDS / 0.02) + 2
+    const state = frames({ progress: 0, readySeconds: 0 }, afterDeadline, true, 0.8, true)
     expect(state.progress).toBe(0.8)
     expect(frames(state, 1, true, 0, true).progress).toBe(0)
   })

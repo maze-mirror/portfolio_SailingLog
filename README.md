@@ -3,6 +3,8 @@
 ASCII 风格、以 ONE PIECE 和航海为灵感的个人网页。独立 Vue / TypeScript / Vite 项目。
 
 仓库：[maze-mirror/portfolio_sailingLog](https://github.com/maze-mirror/portfolio_sailingLog)
+
+
 demo: [click here](https://maze-mirror.github.io/portfolio_sailingLog/)
 
 ## 启动
@@ -43,14 +45,6 @@ docs/
   DEVELOPMENT.md   迁移前开发说明
   reference/       参考录屏和原型存档
 ```
-## 字符潮汐过渡（2026-10-30）
-
-个人介绍后继续滚动，字符海浪从顶部涌下，浪峰稍作停留后向顶部退去，留下白色区域供后续内容接入。前段沿用当前 `TIMING.scrollDistance`（5600 px），潮汐另占 2600 px；反向滚动可回看。尚未加入鱼群或半透明内容横栏。
-
-- `src/scene/tide.ts`：GSAP 时间轴、ScrollTrigger、白底覆盖与 Canvas 绘制。推进/浪峰/回流的时间轴比例为 2.2 / 0.55 / 3.1；滚动设定目标位置，动画按时间限速追赶，避免快速滚动跳过阶段。
-- `src/scene/tide-playback.ts`：介绍实际完整显现后，至少停留 `ABOUT_READ_SECONDS`（当前 2 秒）才放行潮汐。离开介绍会清除等待时间，后台时间不计入阅读；反向滚动仍可回看。
-- `src/scene/tide-field.ts`：字符、蓝青色分层、不规则浪头、回卷纹理与泡沫疏密。
-- `src/styles/tide.css`：潮汐叠层。减少动态效果时以白色淡入替代海浪运动。
 
 ## 与 school-web 的关系
 
